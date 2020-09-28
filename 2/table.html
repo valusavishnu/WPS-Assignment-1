@@ -3,33 +3,25 @@
     <head>
         <script>
         function addRow(tableID) {  
-            var table = document.getElementById(tableID);  
-            var rowCount = table.rows.length;  
-            var row = table.insertRow(rowCount);  
-            //Column 1  
-            var cell1 = row.insertCell(0);  
-            var element1 = document.createElement("input");  
-            element1.type = "button";  
-            var btnName = "button" + (rowCount + 1);  
-            element1.name = btnName;  
-            element1.setAttribute('value', 'Delete'); // or element1.value = "button";  
-            element1.onclick = function() {  
-                removeRow(btnName);  
-            }  
-            cell1.appendChild(element1);  
-            //Column 2  
-            var cell2 = row.insertCell(1);  
-            cell2.innerHTML = rowCount + 1;  
-            //Column 3  
-            var cell3 = row.insertCell(2);  
-            var element3 = document.createElement("input");  
-            element3.type = "text";  
-            cell3.appendChild(element3);  
+            var table = document.getElementById(tableID);
+    
+    var rowCount = table.rows.length;
+    var row = table.insertRow(rowCount);
+
+    var colCount = table.rows[1].cells.length;
+    
+
+    for(var i=0; i<colCount; i++) {
+
+        var newcell	= row.insertCell(i);
+
+        newcell.innerHTML = table.rows[1].cells[i].innerHTML;
+    }
         }  
           
         function removeRow(btnName) {  
             try {  
-                var table = document.getElementById('dataTable');  
+                var table = document.getElementById('tableID');  
                 var rowCount = table.rows.length;  
                 for (var i = 0; i < rowCount; i++) {  
                     var row = table.rows[i];  
@@ -42,11 +34,17 @@
             } catch (e) {  
                 alert(e);  
             }  
-        } 
+        }
+
+        function rowno(){
+            var table = document.getElementById('tableID');  
+                var rowCount = table.rows.length;  
+            document.getElementById("rno").value=rowCount;
+        }
     </script>
     </head>
     <body>
-        <table border="1">
+        <table border="1" id="tableID">
             <tr>
                 <td>Row Number</td>
                 <td>Header 1</td>
@@ -55,13 +53,13 @@
                 <td>Header 4</td>
                 <td></td>
             </tr>
-            <tr id="add">
-                <td>1</td>
+            <tr>
+                <td><input type="text" id="rno" value="1" onclick="rowno()"/></td>
                 <td><input type="text"/></td>
                 <td><input type="text"/></td>
                 <td><label for="items">Choose an item:</label>
 
-                    <select name="items" id="items" multiple>
+                    <select name="items" id="items">
                       <option value="Item1">Item1</option>
                       <option value="Item2">Item2</option>
                       <option value="Item3">Item3</option>
@@ -70,22 +68,20 @@
                 <td>
                     <label for="items">Choose an item:</label>
 
-                    <select name="items" id="items" multiple>
+                    <select name="items" id="items">
                       <option value="Item1">Item1</option>
                       <option value="Item2">Item2</option>
                       <option value="Item3">Item3</option>
                       <option value="Item4">Item4</option>
                     </select>
                 </td>
-                <td><input type="button" value="remove"/></td>
+                <td><input type="button" value="remove" onclick="remove('btnName')" style="color:blue"/></td>
             </tr>
+           
+        </table>
+        <table border="1">
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><input type="button" value="addrow"  onclick="addRow('add')"/></td>
-                <td></td>
+                <td style="width: 24.2cm;"><input type="button" value="addrow"  onclick="addRow('tableID')" style="position: relative;left:22.66cm"/></td>
             </tr>
         </table> 
     </body>
